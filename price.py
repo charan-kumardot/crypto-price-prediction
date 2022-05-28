@@ -62,6 +62,7 @@ def price():
         plt.xlabel('Time')
         plt.ylabel('Price')
         plt.legend(loc='upper left')
+        print(len(model_inputs))
         real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs) + 1, 0]]
         real_data = np.array(real_data)
         real_data = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
