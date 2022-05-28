@@ -239,7 +239,7 @@ def sentiment():
         print('Exporting results')
         final_output = create_output_array(summaries, scores, cleaned_urls)
         with open('ethsummaries.csv', mode='w', newline='') as f:
-            csv_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            csv_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL,encoding='cp1252')
             csv_writer.writerows(final_output)
 
     with open("ethsummaries.csv") as csvfile:
