@@ -78,7 +78,6 @@ def price():
     model_inputs = total_dataset[len(total_dataset) - len(test_data) - prediction_days:].values
     model_inputs = model_inputs.reshape(-1, 1)
     model_inputs = scaler.fit_transform(model_inputs)
-    print("len",len(model_inputs))
     x_test = []
     for x in range(prediction_days, len(model_inputs)):
         print(x)
@@ -115,14 +114,15 @@ def create_plot():
     now = datetime.now()
     current_time = now.strftime("%H:%M")
     print(current_time)
-    if current_time=="10:13" or current_time=="10:14":
+    if current_time=="09:00" or current_time=="09:03":
         print("true")
         if os.path.exists("result.csv"):
            os.remove("result.csv")
         price()
 
     df2 = pd.read_csv("result.csv")
-    fig = px.line(df2, y='prices',title='price prediction',template="plotly_dark")
+    fig = px.line(df2, y='prices',
+              title='price prediction',template="plotly_dark")
     fig.update_xaxes(rangeslider_visible=True)
     fig.update_layout(width=1100, height=450)
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
@@ -239,7 +239,7 @@ def sentiment():
         print('Exporting results')
         final_output = create_output_array(summaries, scores, cleaned_urls)
         with open('ethsummaries.csv', mode='w', newline='') as f:
-            csv_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL,encoding='cp1252',engine = 'python')
+            csv_writer = csv.writer(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             csv_writer.writerows(final_output)
 
     with open("ethsummaries.csv") as csvfile:
